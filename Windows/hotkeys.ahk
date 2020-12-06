@@ -40,11 +40,14 @@ return
 #WheelDown::Send ^#{Right}{LWin up}
 
 ; --------------------- Move window to virtual desktop --------------------- 
+; Move window under cursor to previous / next virtual desktop.
+; Works on active & inactive windows.
 ; https://superuser.com/a/1538134/560254
 
-; Ctrl + Win + Mouse wheel up ... Move active window to previous virtual desktop
+; Move window to previous virtual desktop
 ^#WheelUp::
-    WinGetTitle, Title, A
+    MouseGetPos, , , id
+    WinGetTitle, Title, ahk_id %id%
     WinSet, ExStyle, ^0x80, %Title%
     Send {LWin down}{Ctrl down}{Left}{Ctrl up}{LWin up}
     sleep, 50
@@ -52,9 +55,10 @@ return
     WinActivate, %Title%
 Return
 
-; Ctrl + Win + Mouse wheel up ... Move active window to next virtual desktop
+; Move window to next virtual desktop
 ^#WheelDown::
-    WinGetTitle, Title, A
+    MouseGetPos, , , id
+    WinGetTitle, Title, ahk_id %id%
     WinSet, ExStyle, ^0x80, %Title%
     Send {LWin down}{Ctrl down}{Right}{Ctrl up}{LWin up}
     sleep, 50
