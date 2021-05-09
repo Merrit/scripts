@@ -24,4 +24,4 @@ volume=$(echo $volumePercent | cut -d'%' -f 1)
 qdbus org.kde.plasmashell /org/kde/osdService volumeChanged $volume
 
 # Play feedback blip sound.
-paplay --device=$sink $HOME/Nextcloud/Scripts/Linux/volume.ogg
+# paplay --device=$sink $HOME/Nextcloud/Scripts/Linux/volume.ogg

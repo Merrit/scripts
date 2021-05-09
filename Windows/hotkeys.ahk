@@ -68,21 +68,24 @@ Return
 
 ; ------- Use mouse wheel to switch desktops if hovering over desktop ------
 
-; Move virtual desktop to the left
-#If IsDesktopUnderMouse()
-    #WheelUp::Send ^#{Left}{LWin up}
+~RButton & WheelUp::Send ^#{Left}{LWin up}
+~RButton & WheelDown::Send ^#{Right}{LWin up}
 
-; Move virtual desktop to the right
-#If IsDesktopUnderMouse()
-    #WheelDown::Send ^#{Right}{LWin up}
+; ; Move virtual desktop to the left
+; #If IsDesktopUnderMouse()
+;     #WheelUp::Send ^#{Left}{LWin up}
 
-IsDesktopUnderMouse()
-{
-    MouseGetPos, , , OutputVarWin
-    ; WinGetClass, OutputVarClass, % "ahk_id" OutputVarWin
-    ; if (OutputVarClass="WorkerW" or OutputVarClass="Progman")
-    if (OutputVarWin="Shell_TrayWnd")
-        return, 1
-    else
-        return, 0
-}
+; ; Move virtual desktop to the right
+; #If IsDesktopUnderMouse()
+;     #WheelDown::Send ^#{Right}{LWin up}
+
+; IsDesktopUnderMouse()
+; {
+;     MouseGetPos, , , OutputVarWin
+;     ; WinGetClass, OutputVarClass, % "ahk_id" OutputVarWin
+;     ; if (OutputVarClass="WorkerW" or OutputVarClass="Progman")
+;     if (OutputVarWin="Shell_TrayWnd")
+;         return, 1
+;     else
+;         return, 0
+; }
