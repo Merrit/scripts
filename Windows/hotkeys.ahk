@@ -19,6 +19,11 @@ return
     run wt
 return
 
+; F12 ... Launch / toggle Windows Terminal
+F12::
+    Send #6
+return
+
 ; win + PgDown ... Minimize active window
 #PgDn::WinMinimize, A
 
@@ -66,27 +71,21 @@ Return
     WinActivate, %Title%
 Return
 
-; ------- Use mouse wheel to switch desktops if hovering over desktop ------
+; ----------------  Use mouse wheel to switch desktops
 
-~RButton & WheelUp::Send ^#{Left}{LWin up}
-~RButton & WheelDown::Send ^#{Right}{LWin up}
+RButton & WheelUp::
+    Send ^#{Left}{LWin up}
+Return
 
-; ; Move virtual desktop to the left
-; #If IsDesktopUnderMouse()
-;     #WheelUp::Send ^#{Left}{LWin up}
+RButton::RButton ; restore original button function after hotkey use
 
-; ; Move virtual desktop to the right
-; #If IsDesktopUnderMouse()
-;     #WheelDown::Send ^#{Right}{LWin up}
+RButton & WheelDown::
+    Send ^#{Right}{LWin up}
+Return
 
-; IsDesktopUnderMouse()
-; {
-;     MouseGetPos, , , OutputVarWin
-;     ; WinGetClass, OutputVarClass, % "ahk_id" OutputVarWin
-;     ; if (OutputVarClass="WorkerW" or OutputVarClass="Progman")
-;     if (OutputVarWin="Shell_TrayWnd")
-;         return, 1
-;     else
-;         return, 0
-; }
+LButton::LButton ; restore original button function after hotkey use
 
+; ------------------------   Playground
+
+; Pause::Run, "C:\Users\Merritt\AppData\Roaming\Nyrna\nyrna.exe -t"
+^F1::MsgBox Pressed pause
