@@ -73,6 +73,7 @@ Return
 
 ; ----------------  Use mouse wheel to switch desktops
 
+; ----- Right click + mouse wheel
 RButton & WheelUp::
     Send ^#{Left}{LWin up}
 Return
@@ -84,6 +85,17 @@ RButton & WheelDown::
 Return
 
 LButton::LButton ; restore original button function after hotkey use
+
+; ----- Mouse wheel over taskbar
+
+#If MouseIsOver("ahk_class Shell_TrayWnd")
+    WheelUp::Send ^#{Left}{LWin up}
+WheelDown::Send ^#{Right}{LWin up}
+
+MouseIsOver(WinTitle) {
+    MouseGetPos,,, Win
+return WinExist(WinTitle . " ahk_id " . Win)
+}
 
 ; ------------------------   Playground
 
