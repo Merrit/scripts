@@ -88,13 +88,16 @@ LButton::LButton ; restore original button function after hotkey use
 
 ; ----- Mouse wheel over taskbar
 
-#If MouseIsOver("ahk_class Shell_TrayWnd")
+#If MouseIsOver()
     WheelUp::Send ^#{Left}{LWin up}
 WheelDown::Send ^#{Right}{LWin up}
 
-MouseIsOver(WinTitle) {
+MouseIsOver() {
     MouseGetPos,,, Win
-return WinExist(WinTitle . " ahk_id " . Win)
+    overTaskBar := WinExist("ahk_class Shell_TrayWnd" . " ahk_id " . Win)
+    overDisplayFusionTaskBar := WinExist("ahk_class DFTaskbar:f8116113-ea32-4454-ac1c-54f3e7938908" . " ahk_id " . Win)
+    shouldChangeDesktop := overTaskBar || overDisplayFusionTaskBar
+return shouldChangeDesktop
 }
 
 ; ------------------------   Playground
