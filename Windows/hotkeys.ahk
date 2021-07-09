@@ -3,6 +3,9 @@
 SendMode Input ; Recommended for new scripts due to its superior speed and reliability.
 SetWorkingDir %A_ScriptDir% ; Ensures a consistent starting directory.
 
+#InstallKeybdHook
+#InstallMouseHook
+
 ; # = Windows Key
 ; + = Shift
 ; ^ = Control
@@ -20,8 +23,12 @@ return
 return
 
 ; F12 ... Launch / toggle Windows Terminal
-F12::
-    Send #6
+~F12::
+    ; ignored when Blender is the active window.
+    blenderIsActive := WinActive("ahk_exe blender.exe")
+    if (!blenderIsActive) {
+        Send #6
+    }
 return
 
 ; win + PgDown ... Minimize active window
@@ -39,10 +46,14 @@ return
 return
 
 ; Move virtual desktop to the left
-#WheelUp::Send ^#{Left}{LWin up}
+#WheelUp::
+    Send ^#{Left}{LWin up}
+return
 
 ; Move virtual desktop to the right
-#WheelDown::Send ^#{Right}{LWin up}
+#WheelDown::
+    Send ^#{Right}{LWin up}
+return
 
 ; --------------------- Move window to virtual desktop --------------------- 
 ; Move window under cursor to previous / next virtual desktop.
@@ -88,9 +99,18 @@ LButton::LButton ; restore original button function after hotkey use
 
 ; ----- Mouse wheel over taskbar
 
-#If MouseIsOver()
-    WheelUp::Send ^#{Left}{LWin up}
-WheelDown::Send ^#{Right}{LWin up}
+; #If MouseIsOver() 
+~WheelUp::
+    if (MouseIsOver()) {
+        Send ^#{Left}{LWin up}
+    }
+return
+
+~WheelDown::
+    if (MouseIsOver()) {
+        Send ^#{Right}{LWin up}
+    }
+return
 
 MouseIsOver() {
     MouseGetPos,,, Win
@@ -104,3 +124,4 @@ return shouldChangeDesktop
 
 ; Pause::Run, "C:\Users\Merritt\AppData\Roaming\Nyrna\nyrna.exe -t"
 ^F1::MsgBox Pressed pause
+
