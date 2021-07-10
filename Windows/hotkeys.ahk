@@ -115,7 +115,7 @@ return
 MouseIsOver() {
     MouseGetPos,,, Win
     overTaskBar := WinExist("ahk_class Shell_TrayWnd" . " ahk_id " . Win)
-    overDisplayFusionTaskBar := WinExist("ahk_class DFTaskbar:f8116113-ea32-4454-ac1c-54f3e7938908" . " ahk_id " . Win)
+    overDisplayFusionTaskBar := WinExist("ahk_exe DisplayFusion.exe" . " ahk_id " . Win)
     shouldChangeDesktop := overTaskBar || overDisplayFusionTaskBar
 return shouldChangeDesktop
 }
