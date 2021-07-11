@@ -23,13 +23,14 @@ return
 return
 
 ; F12 ... Launch / toggle Windows Terminal
-~F12::
+#If WinActive("ahk_exe blender.exe") 
     ; ignored when Blender is the active window.
-    blenderIsActive := WinActive("ahk_exe blender.exe")
-    if (!blenderIsActive) {
-        Send #6
-    }
-return
+~F12::Return
+
+#If !WinActive("ahk_exe blender.exe") 
+F12::
+Send #6
+Return
 
 ; win + PgDown ... Minimize active window
 #PgDn::WinMinimize, A
