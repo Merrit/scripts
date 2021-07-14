@@ -29,7 +29,7 @@ return
 
 #If !WinActive("ahk_exe blender.exe") 
 F12::
-Send #6
+Send #``
 Return
 
 ; win + PgDown ... Minimize active window
