@@ -105,12 +105,14 @@ LButton::LButton ; restore original button function after hotkey use
     if (MouseIsOver()) {
         Send ^#{Left}{LWin up}
     }
+    Sleep, 50
 return
 
 ~WheelDown::
     if (MouseIsOver()) {
         Send ^#{Right}{LWin up}
     }
+    Sleep, 50
 return
 
 MouseIsOver() {
