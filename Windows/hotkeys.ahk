@@ -22,15 +22,10 @@ return
     run wt
 return
 
-; F12 ... Launch / toggle Windows Terminal
-#If WinActive("ahk_exe blender.exe") 
-    ; ignored when Blender is the active window.
-~F12::Return
-
-#If !WinActive("ahk_exe blender.exe") 
-F12::
-Send #``
-Return
+; F12 ... Launch / toggle Windows Terminal quake mode
+#IfWinNotActive ahk_exe blender.exe
+    F12::Send #``
+#IfWinNotActive
 
 ; win + PgDown ... Minimize active window
 #PgDn::WinMinimize, A
