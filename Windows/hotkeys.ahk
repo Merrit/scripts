@@ -85,13 +85,11 @@ RButton & WheelUp::
     Send ^#{Left}{LWin up}
 Return
 
-RButton::RButton ; restore original button function after hotkey use
-
 RButton & WheelDown::
     Send ^#{Right}{LWin up}
 Return
 
-LButton::LButton ; restore original button function after hotkey use
+RButton::RButton ; restore original button function after hotkey use
 
 ; ----- Mouse wheel over taskbar
 
