@@ -119,5 +119,4 @@ return shouldChangeDesktop
 ; ------------------------   Playground
 
 ; Pause::Run, "C:\Users\Merritt\AppData\Roaming\Nyrna\nyrna.exe -t"
-^F1::MsgBox Pressed pause
-
+; ^F1::MsgBox Pressed pause
