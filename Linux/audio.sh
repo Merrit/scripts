@@ -29,19 +29,22 @@ i3volume=$HOME/Applications/i3-volume/volume
 
 changeVolume() {
     # Set the volume +/- 2%
-    $i3volume -s $sink $1 2
+    $i3volume -s $sink "$1" 2
 }
 
 getVolume() {
     # Get the volume as a percent (eg 60%).
-    local volumePercent=$($i3volume -s $sink output %v)
+    local volumePercent
+    volumePercent=$($i3volume -s $sink output %v)
     # Get the volume without the percent sign.
-    local volume=$(echo $volumePercent | cut -d'%' -f 1)
-    echo $volume
+    local volume
+    volume=$(echo "$volumePercent" | cut -d'%' -f 1)
+    echo "$volume"
 }
 
 notify() {
-    local volume=$(getVolume)
+    local volume
+    volume=$(getVolume)
     # Send generic notification (works with GNOME) that the volume has changed to trigger notification. TODO: A way to trigger OSD on GNOME would be much nicer.
     notify-send "Toggled mute for PC Speakers" "Volume: $volume"
     # Send notification to Plasma that the volume has changed to trigger OSD.
@@ -56,7 +59,7 @@ toggleMute() {
 
 if [[ $1 == "up" ]] || [[ $1 == "down" ]]
 then
-    changeVolume $1
+    changeVolume "$1"
     notify
 
 elif [[ $1 == "mute" ]]
