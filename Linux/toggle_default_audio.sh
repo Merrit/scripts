@@ -7,7 +7,7 @@
 # pactl list short sinks
 
 
-tvSink="alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra5"
+tvSink="alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra3"
 pcSpeakersSink="alsa_output.pci-0000_2d_00.4.analog-stereo"
 
 CURRENT_PROFILE=$(pactl list short sinks | grep RUNNING | awk '{print $2}')
