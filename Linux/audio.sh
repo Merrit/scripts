@@ -57,19 +57,39 @@ getVolume() {
     echo "$volume"
 }
 
+_notificationsId="audio-script"
+
 notify() {
     local volume
     volume=$(getVolume)
-    # Send generic notification (works with GNOME) that the volume has changed to trigger notification. TODO: A way to trigger OSD on GNOME would be much nicer.
-#     notify-send "Toggled mute for PC Speakers" "Volume: $volume"
+
+    local icon
+
+    if [[ $volume != "MUTE" ]]
+    then
+        volume="$volume%"
+        icon="audio-volume-medium"
+    else
+        icon="audio-volume-muted"
+    fi
+
+
+    # Send generic notification (works with GNOME) that the volume has changed to trigger notification.
+    _notificationsId=$(/home/merritt/.local/bin/notify-send.py \
+        "Volume" "$volume" \
+        --hint string:image-path:$icon \
+        boolean:transient:true \
+        --replaces-process $_notificationsId)
+
     # Send notification to Plasma that the volume has changed to trigger OSD.
-    qdbus-qt5 org.kde.plasmashell /org/kde/osdService volumeChanged $volume
+    # qdbus-qt5 org.kde.plasmashell /org/kde/osdService volumeChanged $volume
     # Alternate notification option:
     # kdialog --title "Pulseaudio" --passivepopup "Toggled PC Speaker Mute" 1 &
 }
 
 toggleMute() {
     pactl set-sink-mute $sink toggle
+    notify
 }
 
 if [[ $1 == "up" ]] || [[ $1 == "down" ]]
