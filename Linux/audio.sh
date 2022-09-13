@@ -2,6 +2,16 @@
 
 # Make volume control saner / work better for me.
 
+
+
+
+# ---------------------------------------------------------------------------- #
+#                            USE DART SCRIPT INSTEAD                           #
+# ---------------------------------------------------------------------------- #
+
+
+
+
 _help="
     Options:
     - up / down: change volume by 2% in either direction
@@ -77,12 +87,26 @@ notify() {
         icon="audio-volume-muted"
     fi
 
-    if [ $targetingTV = true ] ; then
+    # Disable this check for now, because the DBus version works much better.
+    # Keeping it around because I believe the next version of GNOME has
+    # dropped this DBus method and we will need an alternative..
+    # Don't forget that creating an OSD via Flutter is an option!
+    # if [ $targetingTV = true ] ; then
+    local target
+
+    if [[ $targetingTV = true ]]
+    then
+        target='TV'
+    else
+        target='Speakers'
+    fi
+
+    if true ; then
         # Trigger GNOME's OSD via DBUS.
         gdbus call --session --dest 'org.gnome.Shell' \
         --object-path '/org/gnome/Shell' \
         --method 'org.gnome.Shell.ShowOSD' "{'icon': <'$icon'>, \
-        'label': <'HDMI Volume: $volume'>, 'level': <$volumeDouble>}"
+        'label': <'$target volume: $volume'>, 'level': <$volumeDouble>}"
     else
         # Send generic notification (works with GNOME) that the volume has changed to trigger notification.
         _notificationsId=$(/home/merritt/.local/bin/notify-send.py \
