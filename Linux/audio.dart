@@ -1,7 +1,7 @@
 import 'dart:io';
 
 class Sink {
-  static const speakers = 'alsa_output.pci-0000_2d_00.4.5.analog-stereo';
+  static const speakers = 'alsa_output.pci-0000_2d_00.4.analog-stereo';
   static const tv = 'alsa_output.pci-0000_2b_00.1.hdmi-stereo-extra3';
 }
 
