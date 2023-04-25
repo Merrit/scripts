@@ -9,12 +9,27 @@ Future<void> main(List<String> args) async {
     'gsettings set org.gnome.desktop.interface scaling-factor 2',
   );
 
-  await runBashCommand('autorandr --load main');
+  await runBashCommand(
+    'gsettings set org.gnome.desktop.interface text-scaling-factor 1',
+  );
+
+  await runBashCommand(
+    'xrandr --output DisplayPort-0 --off --output DisplayPort-1 --off --output HDMI-A-0 --off --output HDMI-A-1 --primary --mode 3840x2160 --scale 1.33x1.33 --primary --set TearFree on --pos 0x0 --rotate normal --output DVI-D-0 --off',
+  );
 }
 
+/// Runs a bash command and prints the result.
 Future<void> runBashCommand(String command) async {
-  await Process.run('bash', [
+  final result = await Process.run('bash', [
     '-c',
     command,
   ]);
+
+  print('''
+Finished running command: $command
+
+stderr: ${result.stderr}
+
+stdout: ${result.stdout}
+''');
 }
