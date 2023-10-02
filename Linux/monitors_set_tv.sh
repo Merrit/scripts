@@ -12,7 +12,12 @@ xrandr --output DisplayPort-0 --off --output DisplayPort-1 --off --output HDMI-A
 # Switch default audio sink if the sink name doesn't contain "hdmi".
 defaultSink=$(pactl get-default-sink)
 if [[ $defaultSink != *"hdmi"* ]]; then
-    bash /home/merritt/Dropbox/Scripts/Linux/audio_toggle_default.sh
+    bash /home/merritt/Dropbox/Scripts/Linux/audio_toggle_default.sh >> /home/merritt/monitor_errors.log 2>&1
+    sleep 1
+    defaultSink=$(pactl get-default-sink)
+    if [[ $defaultSink != *"hdmi"* ]]; then
+        echo "Failed to switch to HDMI sink" >> /home/merritt/monitors_set_tv_errors.log
+    fi
 fi
 
 # Apply window rules
